@@ -1,0 +1,62 @@
+{
+    "name": "@jofu/number-to-words",
+    "version": "0.0.1",
+    "description": "A library for converting numbers to Vietnamese words",
+    "keywords": [
+        "jofu",
+        "number-to-words",
+        "convert",
+        "vietnamese"
+    ],
+    "homepage": "https://github.com/LqhResearch/jofu-number-to-words#readme",
+    "author": "LqhResearch <lqhung.max@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LqhResearch/jofu-number-to-words.git"
+    },
+    "bugs": {
+        "url": "https://github.com/LqhResearch/jofu-number-to-words/issues"
+    },
+    "engines": {
+        "node": ">=14"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/index.js",
+        "dist/index.mjs",
+        "dist/index.d.ts"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        }
+    },
+    "browserslist": [
+        "defaults"
+    ],
+    "scripts": {
+        "build": "tsup src/index.ts --format cjs,esm --dts --minify",
+        "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+        "pub": "npm run build && npm publish --access public",
+        "format": "prettier --write .",
+        "test": "vitest"
+    },
+    "peerDependencies": {
+        "typescript": "^5.6.0"
+    },
+    "devDependencies": {
+        "prettier": "^3.5.3",
+        "prettier-plugin-tailwindcss": "^0.6.11",
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.1"
+    },
+    "sideEffects": false
+}

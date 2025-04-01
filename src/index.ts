@@ -1,0 +1,1 @@
+export { numberToWords } from './converter';
