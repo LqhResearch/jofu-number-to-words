@@ -54,10 +54,18 @@ import { numberToWords } from '@jofu/number-to-words';
 
 console.log(numberToWords(0)); // "không"
 console.log(numberToWords(123)); // "một trăm hai mươi ba"
-console.log(numberToWords(123.45)); // "một trăm hai mươi phẩy bốn lăm"
+console.log(numberToWords(123.45)); // "một trăm hai mươi ba phẩy bốn mươi lăm"
 console.log(numberToWords(-123)); // "âm một trăm hai mươi ba"
 console.log(numberToWords(1000)); // "một nghìn"
 ```
+
+## Tham số của `numberToWords`
+
+| Tham số                   | Kiểu dữ liệu         | Mô tả                                                             | Mặc định   |
+| ------------------------- | -------------------- | ----------------------------------------------------------------- | ---------- |
+| `number`                  | `number`             | Số cần chuyển đổi. Có thể là số nguyên, số âm, hoặc số thập phân. | (Bắt buộc) |
+| `config.decimalSeparator` | `'phẩy'` \| `'chấm'` | Cấu hình dấu phân cách thập phân.                                 | `'phẩy'`   |
+| `config.fractionalPrefix` | `'linh'` \| `'lẻ'`   | Cấu hình tiền tố cho phần thập phân.                              | `'linh'`   |
 
 ## Kết luận
 
