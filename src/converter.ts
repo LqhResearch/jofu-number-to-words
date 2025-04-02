@@ -1,3 +1,5 @@
+import { NumberToWordsConfig } from './interfaces/config';
+
 function toWords3Digits(number: number, isBefore: boolean = false, fractionalPrefix): string {
     const numberWords = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
 
