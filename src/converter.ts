@@ -1,8 +1,13 @@
 import { NumberToWordsConfig } from './interfaces/config';
 
-function toWords3Digits(number: number, isBefore: boolean = false, fractionalPrefix): string {
+function toWords3Digits(
+    number: number,
+    isBefore: boolean = false,
+    config: NumberToWordsConfig,
+): string {
     const numberWords = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
 
+    console.log('fractionalPrefix', config.fractionalPrefix);
     const hundreds = Math.floor(number / 100);
     const tens = Math.floor((number % 100) / 10);
     const units = number % 10;
@@ -13,7 +18,7 @@ function toWords3Digits(number: number, isBefore: boolean = false, fractionalPre
         result += numberWords[hundreds] + ' trăm';
 
         if (tens == 0 && units > 0) {
-            result += ` ${fractionalPrefix}`;
+            result += ` ${config.fractionalPrefix}`;
         }
     } else if (tens > 0 || units > 0) {
         if (isBefore) {
@@ -39,7 +44,7 @@ function toWords3Digits(number: number, isBefore: boolean = false, fractionalPre
         }
     } else if (units > 0) {
         if (isBefore) {
-            result += ` ${fractionalPrefix}`;
+            result += ` ${config.fractionalPrefix}`;
         }
         result += ` ${numberWords[units]}`;
     }
@@ -58,22 +63,21 @@ function splitIntoChunks(number: number): number[] {
     return chunks;
 }
 
-function integerToWords(number: number, fractionalPrefix): string {
+function integerToWords(number: number, config: NumberToWordsConfig): string {
     const unitNames = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];
     const numberChunks = splitIntoChunks(number);
 
-    let result = '';
+    const words: string[] = [];
+
     numberChunks.forEach((chunk, index) => {
         if (chunk !== 0) {
-            result +=
-                toWords3Digits(chunk, index !== 0, fractionalPrefix) +
-                ' ' +
-                unitNames[numberChunks.length - 1 - index] +
-                ' ';
+            const chunkWords = toWords3Digits(chunk, index !== 0, config);
+            const unit = unitNames[numberChunks.length - 1 - index];
+            words.push(`${chunkWords} ${unit}`.trim());
         }
     });
 
-    return result.trim();
+    return config.useThousandsSeparator ? words.join(', ') : words.join(' ');
 }
 
 function decimalToWords(decimalPart: string, config: NumberToWordsConfig): string {
@@ -92,28 +96,32 @@ function decimalToWords(decimalPart: string, config: NumberToWordsConfig): strin
             }
         }
 
-        words += integerToWords(Number(decimalPart), config.fractionalPrefix);
+        words += integerToWords(Number(decimalPart), config);
     }
 
     return words.trim();
 }
 
-export function numberToWords(number: number, config: NumberToWordsConfig = {}): string {
+export function numberToWords(
+    number: number,
+    config: NumberToWordsConfig = {
+        decimalSeparator: 'phẩy',
+        fractionalPrefix: 'linh',
+        useThousandsSeparator: false,
+    },
+): string {
     if (number === 0) return 'không';
     if (number < 0) return 'âm ' + numberToWords(-number, config);
 
     const [integerPart, decimalPart] = number.toString().split('.');
 
-    const decimalSeparator = config.decimalSeparator ?? 'phẩy';
-    const fractionalPrefix = config.fractionalPrefix ?? 'linh';
-
-    let words = integerToWords(Number(integerPart), fractionalPrefix);
+    let words = integerToWords(Number(integerPart), config);
 
     if (decimalPart) {
         if (Number(integerPart) === 0) {
             words += ' không';
         }
-        words += ' ' + decimalToWords(decimalPart, { decimalSeparator, fractionalPrefix });
+        words += ' ' + decimalToWords(decimalPart, config);
     }
 
     return words.trim();

@@ -61,11 +61,12 @@ console.log(numberToWords(1000)); // "một nghìn"
 
 ## Tham số của `numberToWords`
 
-| Tham số                   | Kiểu dữ liệu         | Mô tả                                                             | Mặc định   |
-| ------------------------- | -------------------- | ----------------------------------------------------------------- | ---------- |
-| `number`                  | `number`             | Số cần chuyển đổi. Có thể là số nguyên, số âm, hoặc số thập phân. | (Bắt buộc) |
-| `config.decimalSeparator` | `'phẩy'` \| `'chấm'` | Cấu hình dấu phân cách thập phân.                                 | `'phẩy'`   |
-| `config.fractionalPrefix` | `'linh'` \| `'lẻ'`   | Cấu hình tiền tố cho phần thập phân.                              | `'linh'`   |
+| Tham số                        | Kiểu dữ liệu         | Mô tả                                                                       | Mặc định   |
+| ------------------------------ | -------------------- | --------------------------------------------------------------------------- | ---------- |
+| `number`                       | `number`             | Số cần chuyển đổi. Có thể là số nguyên, số âm, hoặc số thập phân.           | (Bắt buộc) |
+| `config.useThousandsSeparator` | `boolean`            | Thêm dấu phẩy giữa các đơn vị lớn như "triệu, nghìn, ..."                   | `false`    |
+| `config.decimalSeparator`      | `'phẩy'` \| `'chấm'` | Cấu hình từ dùng để đọc dấu phân cách thập phân (`1.5` → "một _phẩy_ năm"). | `'phẩy'`   |
+| `config.fractionalPrefix`      | `'linh'` \| `'lẻ'`   | Tiền tố dùng trước chữ số đầu tiên của phần thập phân.                      | `'linh'`   |
 
 ## Kết luận
 

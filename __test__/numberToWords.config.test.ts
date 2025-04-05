@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { numberToWords } from '../src/converter';
+import { NumberToWordsConfig } from '../src/interfaces/config';
 
 describe('numberToWords - Decimal and Fractional Prefix Config', () => {
     test('should use default "phẩy" and "linh"', () => {
@@ -8,14 +9,18 @@ describe('numberToWords - Decimal and Fractional Prefix Config', () => {
     });
 
     test('should allow custom decimal separator', () => {
-        expect(numberToWords(1.5, { decimalSeparator: 'chấm' })).toBe('một chấm năm');
-        expect(numberToWords(10.02, { decimalSeparator: 'chấm' })).toBe('mười chấm không hai');
+        const config: NumberToWordsConfig = { decimalSeparator: 'chấm' };
+
+        expect(numberToWords(1.5, config)).toBe('một chấm năm');
+        expect(numberToWords(10.02, config)).toBe('mười chấm không hai');
     });
 
     test('should convert three-digit numbers', () => {
-        expect(numberToWords(100, { fractionalPrefix: 'lẻ' })).toBe('một trăm');
-        expect(numberToWords(105, { fractionalPrefix: 'lẻ' })).toBe('một trăm lẻ năm');
-        expect(numberToWords(210, { fractionalPrefix: 'lẻ' })).toBe('hai trăm mười');
-        expect(numberToWords(999, { fractionalPrefix: 'lẻ' })).toBe('chín trăm chín mươi chín');
+        const config: NumberToWordsConfig = { fractionalPrefix: 'lẻ' };
+
+        expect(numberToWords(100, config)).toBe('một trăm');
+        expect(numberToWords(105, config)).toBe('một trăm lẻ năm');
+        expect(numberToWords(210, config)).toBe('hai trăm mười');
+        expect(numberToWords(999, config)).toBe('chín trăm chín mươi chín');
     });
 });
