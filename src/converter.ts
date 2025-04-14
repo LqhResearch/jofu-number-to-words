@@ -7,18 +7,18 @@ function toWords3Digits(
 ): string {
     const numberWords = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
 
-    console.log('fractionalPrefix', config.fractionalPrefix);
     const hundreds = Math.floor(number / 100);
     const tens = Math.floor((number % 100) / 10);
     const units = number % 10;
 
     let result = '';
+    let addedFractional = false;
 
     if (hundreds > 0) {
         result += numberWords[hundreds] + ' trăm';
-
         if (tens == 0 && units > 0) {
             result += ` ${config.fractionalPrefix}`;
+            addedFractional = true;
         }
     } else if (tens > 0 || units > 0) {
         if (isBefore) {
@@ -43,7 +43,7 @@ function toWords3Digits(
             result += ` ${numberWords[units]}`;
         }
     } else if (units > 0) {
-        if (isBefore) {
+        if (!addedFractional && isBefore) {
             result += ` ${config.fractionalPrefix}`;
         }
         result += ` ${numberWords[units]}`;

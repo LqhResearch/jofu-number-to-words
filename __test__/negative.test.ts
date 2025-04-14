@@ -33,6 +33,7 @@ describe('numberToWords - Negative Numbers', () => {
 
     test('should convert large negative numbers', () => {
         expect(numberToWords(-1000000)).toBe('âm một triệu');
+        expect(numberToWords(-5105000)).toBe('âm năm triệu một trăm linh năm nghìn');
         expect(numberToWords(-500000000)).toBe('âm năm trăm triệu');
         expect(numberToWords(-1000000000)).toBe('âm một tỷ');
         expect(numberToWords(-1234567890)).toBe(

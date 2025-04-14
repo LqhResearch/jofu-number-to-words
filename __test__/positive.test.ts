@@ -34,6 +34,7 @@ describe('numberToWords', () => {
 
     test('should convert large numbers', () => {
         expect(numberToWords(1000000)).toBe('một triệu');
+        expect(numberToWords(5105000)).toBe('năm triệu một trăm linh năm nghìn');
         expect(numberToWords(1512347)).toBe(
             'một triệu năm trăm mười hai nghìn ba trăm bốn mươi bảy',
         );

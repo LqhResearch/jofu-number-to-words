@@ -1,6 +1,6 @@
 {
     "name": "@jofu/number-to-words",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "A library for converting numbers to Vietnamese words",
     "keywords": [
         "jofu",
