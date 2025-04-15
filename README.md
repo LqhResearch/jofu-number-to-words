@@ -1,73 +1,112 @@
+> 🌐 This documentation is available in: [🇬🇧 English](./README.md) | [🇻🇳 Vietnamese](./README_vi.md)
+
 # @jofu/number-to-words
 
-Thư viện `@jofu/number-to-words` giúp chuyển đổi số thành chữ tiếng Việt một cách chính xác và linh hoạt. Thư viện hỗ trợ chuyển đổi các số nguyên, số thập phân, và số âm.
+The `@jofu/number-to-words` library provides accurate and flexible conversion of numbers into words in both Vietnamese and English. It supports integers, decimals, and negative numbers, with configurable options to control how decimals and thousands separators are read in both languages.
 
-## Cài đặt
+## Installation
 
-Để sử dụng thư viện, bạn có thể cài đặt qua npm hoặc yarn:
+You can install the library using npm or yarn:
 
 ```bash
 npm install @jofu/number-to-words
 ```
 
-Hoặc:
+Or:
 
 ```bash
 yarn add @jofu/number-to-words
 ```
 
-## Sử dụng
+## Usage
 
-### Chuyển đổi số nguyên thành chữ
+### Convert integers to Vietnamese words
 
-Để chuyển đổi một số nguyên thành chữ, bạn chỉ cần gọi hàm `numberToWords` với số cần chuyển đổi:
+To convert an integer to Vietnamese words, simply call `toWords.vi` with the number and (optionally) a config object:
 
 ```typescript
-import { numberToWords } from '@jofu/number-to-words';
+import { toWords } from '@jofu/number-to-words';
 
-const result = numberToWords(1234567);
+const result = toWords.vi(1234567);
 console.log(result); // "một triệu hai trăm ba mươi bốn nghìn năm trăm sáu mươi bảy"
 ```
 
-### Chuyển đổi số âm
+### Convert negative numbers to Vietnamese words
 
-Hàm `numberToWords` hỗ trợ chuyển đổi số âm:
+The library supports negative numbers:
 
 ```typescript
-const result = numberToWords(-123);
+const result = toWords.vi(-123);
 console.log(result); // "âm một trăm hai mươi ba"
 ```
 
-### Chuyển đổi số thập phân
+### Convert decimals to Vietnamese words
 
-Thư viện hỗ trợ chuyển đổi số thập phân:
+Decimal numbers are supported with customizable options:
 
 ```typescript
-const result = numberToWords(123.45);
+const result = toWords.vi(123.45);
 console.log(result); // "một trăm hai mươi ba phẩy bốn mươi lăm"
 ```
 
-## Ví dụ
+### Convert integers to English words
+
+To convert an integer to English words, use `toWords.en`:
 
 ```typescript
-import { numberToWords } from '@jofu/number-to-words';
-
-console.log(numberToWords(0)); // "không"
-console.log(numberToWords(123)); // "một trăm hai mươi ba"
-console.log(numberToWords(123.45)); // "một trăm hai mươi ba phẩy bốn mươi lăm"
-console.log(numberToWords(-123)); // "âm một trăm hai mươi ba"
-console.log(numberToWords(1000)); // "một nghìn"
+const result = toWords.en(105);
+console.log(result); // "one hundred and five"
 ```
 
-## Tham số của `numberToWords`
+### Convert decimals to English words
 
-| Tham số                        | Kiểu dữ liệu         | Mô tả                                                                       | Mặc định   |
-| ------------------------------ | -------------------- | --------------------------------------------------------------------------- | ---------- |
-| `number`                       | `number`             | Số cần chuyển đổi. Có thể là số nguyên, số âm, hoặc số thập phân.           | (Bắt buộc) |
-| `config.useThousandsSeparator` | `boolean`            | Thêm dấu phẩy giữa các đơn vị lớn như "triệu, nghìn, ..."                   | `false`    |
-| `config.decimalSeparator`      | `'phẩy'` \| `'chấm'` | Cấu hình từ dùng để đọc dấu phân cách thập phân (`1.5` → "một _phẩy_ năm"). | `'phẩy'`   |
-| `config.fractionalPrefix`      | `'linh'` \| `'lẻ'`   | Tiền tố dùng trước chữ số đầu tiên của phần thập phân.                      | `'linh'`   |
+The library supports English decimal reading as well:
 
-## Kết luận
+```typescript
+const result = toWords.en(123.45);
+console.log(result); // "one hundred and twenty-three point four five"
+```
 
-Thư viện `@jofu/number-to-words` mang lại một giải pháp đơn giản, hiệu quả và linh hoạt cho việc chuyển đổi số thành chữ tiếng Việt. Đây là công cụ hữu ích cho các ứng dụng cần thể hiện số liệu dưới dạng văn bản hoặc trong các giao diện người dùng.
+### Full example
+
+```typescript
+import { toWords } from '@jofu/number-to-words';
+
+console.log(toWords.vi(0)); // "không"
+console.log(toWords.vi(123)); // "một trăm hai mươi ba"
+console.log(toWords.vi(123.45)); // "một trăm hai mươi ba phẩy bốn mươi lăm"
+console.log(toWords.vi(-123)); // "âm một trăm hai mươi ba"
+console.log(toWords.vi(1000)); // "một nghìn"
+
+console.log(toWords.en(105)); // "one hundred and five"
+console.log(toWords.en(123.45)); // "one hundred and twenty-three point four five"
+```
+
+## `toWords` Parameters
+
+The `toWords` function accepts an optional configuration object to customize the output. The config is passed as either `VietnameseConfig` or `EnglishConfig`:
+
+| Parameter | Type                                | Description                                                            | Required |
+| --------- | ----------------------------------- | ---------------------------------------------------------------------- | -------- |
+| `number`  | `number`                            | The number to convert. Can be an integer, negative number, or decimal. | Yes      |
+| `config`  | `VietnameseConfig \| EnglishConfig` | Configuration object for Vietnamese or English number reading.         | Optional |
+
+### VietnameseConfig
+
+| Option                  | Type                 | Description                                                         | Default  |
+| ----------------------- | -------------------- | ------------------------------------------------------------------- | -------- |
+| `decimalSeparator`      | `'phẩy'` \| `'chấm'` | Word used for the decimal point (`1.5` → "một _phẩy_ năm").         | `'phẩy'` |
+| `fractionalPrefix`      | `'linh'` \| `'lẻ'`   | Prefix before the first digit of the decimal part (e.g., "lẻ năm"). | `'linh'` |
+| `useThousandsSeparator` | `boolean`            | Whether to use commas for large units like "triệu", "nghìn", etc.   | `false`  |
+
+### EnglishConfig
+
+| Option                  | Type      | Description                                                                    | Default   |
+| ----------------------- | --------- | ------------------------------------------------------------------------------ | --------- |
+| `point`                 | `string`  | Word used for the decimal point (`1.5` → "one _point_ five").                  | `'point'` |
+| `and`                   | `string`  | Word used to join parts of multi-digit numbers, like "one hundred _and_ five". | `'and'`   |
+| `useThousandsSeparator` | `boolean` | Whether to use commas for large units like "million", "thousand", etc.         | `false`   |
+
+## Conclusion
+
+`@jofu/number-to-words` is a simple, powerful, and flexible solution for converting numbers into written words in both Vietnamese and English. It’s ideal for applications that need to display numeric data as text or improve the accessibility and clarity of user interfaces.

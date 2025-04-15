@@ -1,9 +1,9 @@
-import { NumberToWordsConfig } from './interfaces/config';
+import { VietnameseConfig } from '../interfaces/config';
 
 function toWords3Digits(
     number: number,
     isBefore: boolean = false,
-    config: NumberToWordsConfig,
+    config: VietnameseConfig,
 ): string {
     const numberWords = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
 
@@ -63,7 +63,7 @@ function splitIntoChunks(number: number): number[] {
     return chunks;
 }
 
-function integerToWords(number: number, config: NumberToWordsConfig): string {
+function integerToWords(number: number, config: VietnameseConfig): string {
     const unitNames = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];
     const numberChunks = splitIntoChunks(number);
 
@@ -80,7 +80,7 @@ function integerToWords(number: number, config: NumberToWordsConfig): string {
     return config.useThousandsSeparator ? words.join(', ') : words.join(' ');
 }
 
-function decimalToWords(decimalPart: string, config: NumberToWordsConfig): string {
+function decimalToWords(decimalPart: string, config: VietnameseConfig): string {
     if (!decimalPart) return '';
 
     let words = config.decimalSeparator + ' ';
@@ -102,16 +102,16 @@ function decimalToWords(decimalPart: string, config: NumberToWordsConfig): strin
     return words.trim();
 }
 
-export function numberToWords(
+export function toWords(
     number: number,
-    config: NumberToWordsConfig = {
+    config: VietnameseConfig = {
         decimalSeparator: 'phẩy',
         fractionalPrefix: 'linh',
         useThousandsSeparator: false,
     },
 ): string {
     if (number === 0) return 'không';
-    if (number < 0) return 'âm ' + numberToWords(-number, config);
+    if (number < 0) return 'âm ' + toWords(-number, config);
 
     const [integerPart, decimalPart] = number.toString().split('.');
 
