@@ -5,7 +5,13 @@ export interface VietnameseConfig {
 }
 
 export interface EnglishConfig {
-    useThousandsSeparator?: boolean;
     point?: string;
     and?: string;
+    useThousandsSeparator?: boolean;
+}
+
+export interface ChineseConfig {
+    decimalSeparator?: string;
+    useTraditional?: boolean;
+    useThousandsSeparator?: boolean;
 }
