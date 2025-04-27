@@ -63,19 +63,25 @@ function integerToWords(num: number, config: ChineseConfig): string {
         const unit = bigUnits[chunks.length - 1 - i];
 
         if (chunkText) {
-            parts.push(chunkText + unit);
-        } else if (
-            i !== chunks.length - 1 &&
-            parts.length > 0 &&
-            !parts[parts.length - 1].endsWith(digits[0])
-        ) {
+            if (unit) {
+                parts.push(chunkText + unit);
+            } else {
+                parts.push(chunkText);
+            }
+        } else if (i !== chunks.length - 1) {
             parts.push(digits[0]);
         }
     }
 
-    let result = parts.join('').replace(/零+/g, '零').replace(/零$/, '');
+    let result = parts
+        .join('')
+        .replace(/零+/g, '零')
+        .replace(/零$/, '')
+        .replace(/零万/g, '万')
+        .replace(/零亿/g, '亿')
+        .replace(/零兆/g, '兆');
 
-    result = result.replace(/零万/g, '万').replace(/零亿/g, '亿').replace(/零兆/g, '兆');
+    result = result.replace(/亿万/g, '亿');
 
     return result;
 }

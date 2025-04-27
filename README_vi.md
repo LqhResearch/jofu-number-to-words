@@ -1,8 +1,8 @@
-> 🌐 This documentation is available in: [🇬🇧 English](./README.md) | [🇻🇳 Vietnamese](./README_vi.md)
+> 🌐 This documentation is available in: [🇬🇧 English](./README.md) | [🇻🇳 Vietnamese](./README_vi.md) | [🇨🇳 Chinese](./README_zh.md)
 
 # @jofu/number-to-words
 
-Thư viện `@jofu/number-to-words` giúp chuyển đổi các số thành chữ tiếng Việt và tiếng Anh một cách chính xác và linh hoạt. Thư viện hỗ trợ chuyển đổi số nguyên, số thập phân và số âm, với các tùy chọn cấu hình để kiểm soát cách đọc các phần thập phân và phân cách hàng nghìn cho cả hai ngôn ngữ.
+Thư viện `@jofu/number-to-words` cung cấp một giải pháp đơn giản và linh hoạt để chuyển đổi các số thành chữ bằng tiếng Việt, tiếng Anh và tiếng Trung. Thư viện hỗ trợ chuyển đổi số nguyên, số thập phân và số âm, với các tùy chọn cấu hình cho phép điều chỉnh cách đọc phần thập phân và phân cách hàng nghìn cho cả ba ngôn ngữ.
 
 ## Cài đặt
 
@@ -20,7 +20,7 @@ yarn add @jofu/number-to-words
 
 ## Hướng dẫn sử dụng
 
-### Chuyển đổi số nguyên thành chữ tiếng Việt
+### Tiếng Việt
 
 Để chuyển đổi một số nguyên thành chữ, bạn chỉ cần gọi hàm `toWords.vi` với số cần chuyển đổi và (tùy chọn) tham số cấu hình:
 
@@ -31,65 +31,36 @@ const result = toWords.vi(1234567);
 console.log(result); // "một triệu hai trăm ba mươi bốn nghìn năm trăm sáu mươi bảy"
 ```
 
-### Chuyển đổi số âm tiếng Việt
+### Tiếng Anh
 
-Thư viện hỗ trợ chuyển đổi số âm:
-
-```typescript
-const result = toWords.vi(-123);
-console.log(result); // "âm một trăm hai mươi ba"
-```
-
-### Chuyển đổi số thập phân tiếng Việt
-
-Thư viện hỗ trợ chuyển đổi số thập phân với các cấu hình tùy chỉnh:
-
-```typescript
-const result = toWords.vi(123.45);
-console.log(result); // "một trăm hai mươi ba phẩy bốn mươi lăm"
-```
-
-### Chuyển đổi số nguyên thành chữ tiếng Anh
-
-Để chuyển đổi một số nguyên thành chữ tiếng Anh, bạn chỉ cần gọi hàm `toWords.en` với số cần chuyển đổi và (tùy chọn) tham số cấu hình:
-
-```typescript
-const result = toWords.en(105);
-console.log(result); // "one hundred and five"
-```
-
-### Chuyển đổi số thập phân tiếng Anh
-
-Thư viện hỗ trợ chuyển đổi số thập phân tiếng Anh:
-
-```typescript
-const result = toWords.en(123.45);
-console.log(result); // "one hundred and twenty-three point four five"
-```
-
-### Ví dụ đầy đủ
+Để chuyển đổi một số nguyên thành chữ, bạn chỉ cần gọi hàm `toWords.en` với số cần chuyển đổi và (tùy chọn) tham số cấu hình:
 
 ```typescript
 import { toWords } from '@jofu/number-to-words';
 
-console.log(toWords.vi(0)); // "không"
-console.log(toWords.vi(123)); // "một trăm hai mươi ba"
-console.log(toWords.vi(123.45)); // "một trăm hai mươi ba phẩy bốn mươi lăm"
-console.log(toWords.vi(-123)); // "âm một trăm hai mươi ba"
-console.log(toWords.vi(1000)); // "một nghìn"
+const result = toWords.en(1234567);
+console.log(result); // "one million two hundred thirty-four thousand five hundred sixty-seven"
+```
 
-console.log(toWords.en(105)); // "one hundred and five"
-console.log(toWords.en(123.45)); // "one hundred and twenty-three point four five"
+### Tiếng Trung
+
+Để chuyển đổi một số nguyên thành chữ, bạn chỉ cần gọi hàm `toWords.zh` với số cần chuyển đổi và (tùy chọn) tham số cấu hình:
+
+```typescript
+import { toWords } from '@jofu/number-to-words';
+
+const result = toWords.zh(1234567);
+console.log(result); // "一百万二十三四千五百六十七"
 ```
 
 ## Tham số của `toWords`
 
-Hàm `toWords` có thể nhận tham số cấu hình bổ sung để tùy chỉnh cách đọc số. Cấu hình này được cung cấp dưới dạng đối tượng `VietnameseConfig` hoặc `EnglishConfig`, có thể tùy chỉnh như sau:
+Hàm `toWords` có thể nhận tham số cấu hình bổ sung để tùy chỉnh cách đọc số. Cấu hình này được cung cấp dưới dạng đối tượng `VietnameseConfig`, `EnglishConfig` hoặc `ChineseConfig`, và có thể được tùy chỉnh như sau:
 
-| Tham số  | Kiểu dữ liệu                        | Mô tả                                                                                                            | Mặc định   |
-| -------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------- |
-| `number` | `number`                            | Số cần chuyển đổi. Có thể là số nguyên, số âm, hoặc số thập phân.                                                | (Bắt buộc) |
-| `config` | `VietnameseConfig \| EnglishConfig` | Cấu hình cho việc chuyển đổi số. Có thể là `VietnameseConfig` cho tiếng Việt hoặc `EnglishConfig` cho tiếng Anh. | (Bắt buộc) |
+| Tham số  | Kiểu dữ liệu                                       | Mô tả                                                                                                                                              | Mặc định   |
+| -------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| `number` | `number`                                           | Số cần chuyển đổi, có thể là số nguyên, số âm hoặc số thập phân.                                                                                   | (Bắt buộc) |
+| `config` | `VietnameseConfig` `EnglishConfig` `ChineseConfig` | Cấu hình cho việc chuyển đổi số. Có thể là `VietnameseConfig` cho tiếng Việt, `EnglishConfig` cho tiếng Anh, hoặc `ChineseConfig` cho tiếng Trung. | (Bắt buộc) |
 
 ### VietnameseConfig
 
@@ -107,6 +78,13 @@ Hàm `toWords` có thể nhận tham số cấu hình bổ sung để tùy chỉ
 | `and`                   | `string`     | Từ dùng để nối các phần trong số có hơn một chữ số, ví dụ "one hundred and five".  | `'and'`   |
 | `useThousandsSeparator` | `boolean`    | Thêm dấu phẩy giữa các đơn vị lớn như "million", "thousand", v.v...                | `false`   |
 
+### ChineseConfig
+
+| Tham số            | Kiểu dữ liệu     | Mô tả                                                                    | Mặc định |
+| ------------------ | ---------------- | ------------------------------------------------------------------------ | -------- |
+| `decimalSeparator` | `'点'` \| `'分'` | Từ dùng để đọc dấu phân cách thập phân cho tiếng Trung                   | `'点'`   |
+| `useTraditional`   | `boolean`        | Sử dụng chữ số truyền thống trong tiếng Trung (ví dụ: "一" thay vì "一") | `false`  |
+
 ## Kết luận
 
-Thư viện `@jofu/number-to-words` cung cấp một giải pháp đơn giản, hiệu quả và linh hoạt cho việc chuyển đổi các số thành chữ tiếng Việt và tiếng Anh. Đây là công cụ lý tưởng cho các ứng dụng cần thể hiện số liệu dưới dạng văn bản hoặc trong các giao diện người dùng.
+Thư viện `@jofu/number-to-words` cung cấp một giải pháp đơn giản, hiệu quả và linh hoạt để chuyển đổi các số thành chữ bằng tiếng Việt, tiếng Anh và tiếng Trung. Đây là công cụ lý tưởng cho các ứng dụng yêu cầu thể hiện số liệu dưới dạng văn bản hoặc hiển thị trong giao diện người dùng.

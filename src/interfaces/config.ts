@@ -13,5 +13,4 @@ export interface EnglishConfig {
 export interface ChineseConfig {
     decimalSeparator?: string;
     useTraditional?: boolean;
-    useThousandsSeparator?: boolean;
 }

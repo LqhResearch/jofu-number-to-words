@@ -1,14 +1,15 @@
 {
     "name": "@jofu/number-to-words",
-    "version": "0.0.6",
-    "description": "Convert numbers to words in Vietnamese and English",
+    "version": "0.0.8",
+    "description": "Convert numbers to words in Vietnamese, English and Chinese",
     "keywords": [
         "jofu",
         "number-to-words",
         "number to words",
         "convert",
         "vietnamese",
-        "english"
+        "english",
+        "chinese"
     ],
     "homepage": "https://github.com/LqhResearch/jofu-number-to-words#readme",
     "author": "LqhResearch <lqhung.max@gmail.com>",
